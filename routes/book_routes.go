@@ -7,7 +7,7 @@ import (
 
 func RegisterBookRoutes(g *echo.Group) {
 	books := g.Group("/books")
-	books.GET("", handlers.GetAllBooks)
+	books.GET("", handlers.GetBooksPaginated)
 	books.POST("", handlers.CreateBook)
 	books.GET("/:id", handlers.GetBookByID)
 	books.DELETE("/:id", handlers.DeleteBookByID)
