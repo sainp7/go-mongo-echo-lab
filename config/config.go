@@ -25,7 +25,10 @@ var (
 
 func LoadConfig() {
 	once.Do(func() {
-		_ = godotenv.Load(".env")
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Print("Error loading .env file", err)
+		}
 
 		cfg = &AppConfig{
 			AppPort:   getEnv("APP_PORT", "8080"),
@@ -33,8 +36,8 @@ func LoadConfig() {
 			DBName:    getEnv("DB_NAME", "bookstore"),
 			LogLevel:  getEnv("LOG_LEVEL", "debug"),
 			LogFormat: getEnv("LOG_FORMAT", "console"),
-			DebugMode: getEnv("DEBUG_MODE", "false") == "true",
 		}
+		cfg.DebugMode = cfg.LogLevel == "debug"
 		log.Printf("Config loaded: %+v\n", *cfg)
 	})
 }
