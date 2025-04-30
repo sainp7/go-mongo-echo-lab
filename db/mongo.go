@@ -17,7 +17,7 @@ func InitMongo(cfg *config.AppConfig, dbLogger *logger.MongoDBLogger) error {
 
 	logOptions := options.Logger().
 		SetSink(dbLogger).
-		SetComponentLevel(options.LogComponentCommand, options.LogLevelDebug)
+		SetComponentLevel(options.LogComponentCommand, getLoggerLevel(cfg.LogLevel))
 
 	clientOptions := options.Client().
 		ApplyURI(cfg.MongoURI).
@@ -35,4 +35,14 @@ func InitMongo(cfg *config.AppConfig, dbLogger *logger.MongoDBLogger) error {
 	logger.Log.Debug().Str("uri", cfg.MongoURI).Msg("MongoDB client connection details")
 	MongoClient = client
 	return nil
+}
+
+func getLoggerLevel(level string) options.LogLevel {
+	switch level {
+	case "info":
+		return options.LogLevelInfo
+	case "debug":
+		return options.LogLevelDebug
+	}
+	return 1
 }

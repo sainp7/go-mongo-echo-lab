@@ -15,6 +15,7 @@ func MiddlewareLogger(log zerolog.Logger) echo.MiddlewareFunc {
 			res := c.Response()
 
 			// Process request
+			c.SetLogger(&EchoLogger{z: Log})
 			err := next(c)
 
 			stop := time.Now()
