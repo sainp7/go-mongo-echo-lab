@@ -6,7 +6,7 @@ import (
 )
 
 type Book struct {
-	ID         primitive.ObjectID `json:"id" bson:"_id"`
+	ID         primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	Title      string             `json:"title"`
 	Authors    []string           `json:"authors"`
 	ISBN       string             `json:"isbn"`

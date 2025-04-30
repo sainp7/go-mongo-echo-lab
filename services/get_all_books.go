@@ -11,7 +11,7 @@ import (
 )
 
 func GetAllBooks() ([]models.Book, error) {
-	cursor, err := db.BookCollection.Find(context.TODO(), bson.M{})
+	cursor, err := db.BookCollection.Find(context.Background(), bson.M{})
 	if err != nil {
 		return nil, err
 	}
